@@ -24,3 +24,33 @@ MockitoAnnotations.initMocks(test class) It must be used to atlease once. To pro
  doReturn(): It is used when we want to retrun a specific value when calling a method on a mock object.The mock mehtod is called in case of both mock & spy objects. doReturn() also be used with method that dont return any value
  
  thenReturn(): This method lets you define the return value when a particular method of the mocked object is been called.
+ 
+    @RunWith(MockitoJUnitRunner.class)
+    public class RealRepositoryTest {
+
+    @Spy
+    RealRepository realRepository;
+
+    @Before
+    public void setUp() throws Exception {
+    }
+
+    @Rule
+    public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
+
+    @Test
+    public void getRealData() {
+
+        doReturn(realRepository.getRealData()).when(realRepository).getRealData();
+
+        System.out.println(realRepository.getRealData());
+    }
+
+    @Test
+    public void getMutableLiveData()
+    {
+        when(realRepository.getMutableLiveData("kathir ","kathir@gmail.com")).thenReturn(realRepository.mutableLiveData);
+        System.out.println(realRepository.mutableLiveData.getValue());
+    }
+
+    }
